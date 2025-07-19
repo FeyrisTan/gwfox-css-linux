@@ -3612,3 +3612,301 @@ tab-group[collapsed] > .tab-group-label-container > & {
 }
 }
 }
+
+/* ===========================
+ *  Linux-Specific Fixes & other Stuff
+ *  =========================== */
+@media (-moz-platform: linux) {
+  /* Top Bar - Use theme color */
+  #navigator-toolbox,
+  #nav-bar,
+  #TabsToolbar {
+  background-color: var(--toolbar-bgcolor) !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  }
+
+  #customization-container {
+  background: var(--toolbar-bgcolor) !important;
+  }
+
+  @-moz-document regexp(".*") {
+    /* Override for Linux: hide the problematic pseudo-element */
+    .titlebar-buttonbox::before {
+      content: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+  }
+
+  .browserStack {
+    border-radius: initial !important;
+    margin: initial !important;
+    box-shadow: none !important;
+  }
+
+
+  .titlebar-buttonbox-container {
+    display: none !important;
+  }
+
+  :root:not([inDOMFullscreen]) {
+    #nav-bar {
+    padding-left: 2px !important;
+    }
+  }
+
+  #tabbrowser-tabpanels {
+  margin-top: -48px !important;
+  transition: none !important;
+  }
+
+  #browser {
+  background-color: var(--toolbar-bgcolor) !important;
+  background-image: none !important;
+  }
+
+  #PanelUI-button {
+  order: -6 !important;  /* Panel UI Button */
+  }
+
+  #unified-extensions-button {
+  order: -5 !important;  /* Unified Extensions Button */
+  }
+
+  #downloads-button {
+  order: -4 !important;  /* Downloads Button */
+  }
+
+  #back-button {
+  order: -3 !important;  /* Back Button */
+  }
+
+  #forward-button {
+  order: -2 !important;  /* Forward Button */
+  }
+
+  #refresh-button {
+  order: -1 !important;  /* Refresh Button */
+  }
+
+  #sidebar-button, #import-button, #ublock0_raymondhill_net-browser-action, #alltabs-button, #fxms-bmb-button {
+  display: none !important;
+  }
+
+  #nav-bar toolbarbutton {
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+  }
+
+  #nav-bar toolbarbutton:first-child {
+  margin-left: 0px !important;
+  }
+
+  #nav-bar toolbarbutton:last-child {
+  margin-right: 0px !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    #main-window:not([sizemode="fullscreen"]) .browserStack {
+    border-radius: 15px !important;
+    margin: 10px !important;
+    border: 3px solid transparent;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.5);
+    overflow: hidden;
+    }
+
+    #main-window:not([sizemode="fullscreen"]) .browserStack:hover {
+    border: 3px solid rgba(204, 204, 204, 0.6);
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.5);
+    }
+  }
+
+  @media (prefers-color-scheme: light)  {
+    #main-window:not([sizemode="fullscreen"]) .browserStack {
+    border-radius: 15px !important;
+    margin: 10px !important;
+    border: 3px solid transparent;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px 5px rgba(255,255,255,0.5);
+    overflow: hidden;
+    }
+
+    #main-window:not([sizemode="fullscreen"]) .browserStack:hover {
+    border: 3px solid rgba(51, 51, 51, 0.6);
+    box-shadow: 0 0 10px 5px rgba(255,255,255,0.5);
+    }
+  }
+
+  #urlbar {
+  left: 4px !important;
+  max-width: 220px !important;
+  }
+
+  /* === Force Vertical Tab Width Override === */
+  @media -moz-pref("sidebar.verticalTabs") {
+    /* Sidebar width
+     * #sidebar-box,
+     * #sidebar-main {
+     * min-width: 200px !important;
+     * max-width: 200px !important;
+     * width: 200px !important;
+  }*/
+
+    /* Tabs fixed width */
+    .tabbrowser-tab {
+      width: 232px !important;
+    }
+
+    .tab-audio-button {
+      margin-right: 10px !important;
+    }
+
+    /* Reset dynamic display changes */
+    .tabbrowser-tab .tab-icon-image,
+    .tabbrowser-tab .tab-close-button {
+      display: inline-flex !important;
+    }
+
+    /* Keep flex stable */
+    .tab-content {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      position: relative !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Icon alignment */
+    .tab-icon-image {
+      margin-left: 16px !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Label alignment */
+    .tab-label-container {
+      margin-left: 2px !important;
+      padding-left: 0 !important;
+      flex-grow: 1 !important;
+      min-width: 0 !important;
+    }
+
+    /* Close button absolute (no layout effect) */
+    .tab-close-button {
+      position: absolute !important;
+      left: 16px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* Show close button on hover without moving label */
+    .tabbrowser-tab:hover .tab-close-button {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .tabbrowser-tab:not([pinned]):hover .tab-icon-image {
+      opacity: 0;
+    }
+
+    /* Hide default throbber */
+    .tab-throbber {
+      display: none !important;
+    }
+
+    /* Container prep */
+    .tabbrowser-tab[busy] > .tab-stack > .tab-background {
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    /* Hide default throbber */
+    .tab-throbber {
+      display: none !important;
+    }
+
+    /* Container prep */
+    .tabbrowser-tab[busy] > .tab-stack > .tab-background {
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    /* Otto Style Progress Bar */
+    .tabbrowser-tab[busy] > .tab-stack > .tab-background::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      border-radius: 3px;
+
+      /* Otto gradient */
+      background: linear-gradient(90deg, #ff6ec7, #ff9f68, #fcb1ff);
+      background-size: 300% 100%;
+
+      /* Glow to match Otto pastel tones */
+      box-shadow: 0 0 10px rgba(255, 110, 199, 0.6);
+      opacity: 1;
+      transform: scaleX(0);
+      transform-origin: left;
+
+      /* Animations */
+      animation:
+      fake-progress 2.8s ease-out forwards,
+      shimmer 1.8s linear infinite;
+    }
+
+    /* Fade out after load */
+    .tabbrowser-tab:not([busy]) > .tab-stack > .tab-background::after {
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+    }
+
+    /* Progress animation */
+    @keyframes fake-progress {
+      0%   { transform: scaleX(0); }
+      50%  { transform: scaleX(0.7); }
+      80%  { transform: scaleX(0.95); }
+      100% { transform: scaleX(1); }
+    }
+
+    /* Shimmer animation */
+    @keyframes shimmer {
+      0%   { background-position: 300% 0; }
+      100% { background-position: -300% 0; }
+    }
+
+    /* Adjusting the position of chatgpt/history panels */
+    #sidebar-box {
+    padding-left: 16px !important;
+    }
+
+    :has(#urlbar[usertyping]):not(:has(#urlbar[persistsearchterms])) {
+      #urlbar {
+      position: fixed !important;
+      width: 58.5vw !important;
+      }
+    }
+
+    :root[bookmarks-toolbar-overlapping] #PersonalToolbar {
+      position: fixed !important;
+      bottom: -32px !important;
+      opacity: 0 !important;
+      transition: bottom .25s, opacity .25s !important;
+    }
+
+    :root[bookmarks-toolbar-overlapping] #PersonalToolbar:hover {
+      bottom: 0 !important;
+      opacity: 1 !important;
+    }
+
+    :root:not([inDOMFullscreen]) {
+      #nav-bar {
+      margin-left: 0px !important;
+      }
+    }
+  }
