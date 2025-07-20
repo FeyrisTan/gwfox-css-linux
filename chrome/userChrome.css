@@ -3909,4 +3909,9 @@ tab-group[collapsed] > .tab-group-label-container > & {
       margin-left: 0px !important;
       }
     }
+
+    /* Disable Ai Login Prompt */
+    .sidebar-login-panel {
+      display: none !important;
+    }
   }
